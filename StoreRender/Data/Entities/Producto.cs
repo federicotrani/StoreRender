@@ -24,4 +24,8 @@ public class Producto
     public int StockMinimo { get; set; }
     [Column("activo")]
     public bool Activo { get; set; }
+    [ForeignKey("Categoria")]
+    [Column("categoria_id")]
+    public int? CategoriaId { get; set; }
+    public Categoria? Categoria { get; set; }
 }

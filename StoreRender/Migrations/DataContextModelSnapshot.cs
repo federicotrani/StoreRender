@@ -21,6 +21,30 @@ namespace StoreRender.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("StoreRender.Data.Entities.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("boolean")
+                        .HasColumnName("activo");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nombre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("categorias");
+                });
+
             modelBuilder.Entity("StoreRender.Data.Entities.Producto", b =>
                 {
                     b.Property<long>("Id")
@@ -33,6 +57,10 @@ namespace StoreRender.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("boolean")
                         .HasColumnName("activo");
+
+                    b.Property<int?>("CategoriaId")
+                        .HasColumnType("integer")
+                        .HasColumnName("categoria_id");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -55,7 +83,18 @@ namespace StoreRender.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoriaId");
+
                     b.ToTable("productos");
+                });
+
+            modelBuilder.Entity("StoreRender.Data.Entities.Producto", b =>
+                {
+                    b.HasOne("StoreRender.Data.Entities.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId");
+
+                    b.Navigation("Categoria");
                 });
 #pragma warning restore 612, 618
         }
