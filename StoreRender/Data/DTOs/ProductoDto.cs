@@ -6,6 +6,7 @@
         decimal Precio,
         int StockActual,
         int StockMinimo,
-        bool Activo
+        bool Activo,
+        int? CategoriaId = null
     );
 }
