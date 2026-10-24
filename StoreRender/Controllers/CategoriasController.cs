@@ -22,4 +22,15 @@ public class CategoriasController : ControllerBase
         return Ok(categorias);
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetCategoria(int id)
+    {
+        var categoria = _context.Categorias.Find(id);
+        if (categoria == null)
+        {
+            return NotFound();
+        }
+        return Ok(categoria);
+    }
+
 }
